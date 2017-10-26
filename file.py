@@ -1,129 +1,101 @@
-#!/usr/bin/env python3
-
-from sys import argv
-import atexit
 import os
 import subprocess
-script, filename = argv
-import base64
-import string
 
-if not os.path.exists(".ssh"):
-    os.makedirs(".ssh")
-    print ("ssh folder created")
-    print ("\n")
-
-
-if os.path.exists('.ssh/' + filename):
-    print ("Config File exists in .ssh/")
-    print ("Now We Editing the same Config file")
-    print ("\n")
 
 filename = ".ssh/config"
 
+if not os.path.exists(".ssh"):
+    os.makedirs(".ssh")
+    print("ssh folder created\n")
 
-
-def exit_handler():
-    print ('Information Saved')
-
-
-if os.path.exists:
+if os.path.exists(filename):
+    print("""
+    Config File exists
+    Now We Editing the same Config file
+    Creating The ssh config File
+    """)
     config = open(filename, 'a')
-    print ("Creating The ssh config File")
-    print ("\n")
-else: 
+else:
     config = open(filename, 'w')
-    print (config)
+    print(config)
 
-if input("Do you want to create ssh key [Y/n]. You can skip with Enter: ") == 'Y':
+if input("Do you want to create ssh key [y/N]. You can skip with Enter: ") == 'y':
     os.system("ssh-keygen -t rsa")
-print ("\n")
+
+print("\n")
 
 scan1 = input("Enter your IP to scan your network for open ssh: ")
 os.system("nmap -v " + str(scan1) + "/24" + "| grep " + " 'ssh'")
-print ("\n")
+
+print("\n")
 
 scan2 = input("Scan Your network for IP Addresses: ")
-#This only for testing 
-#scan2 = "192.168.56.1"
-os.system("nmap -v " + scan2 + "/24" + "| grep" + " 'port 22'")
+process = subprocess.Popen(
+    "nmap -v  " + str(scan2) + "/24  |  grep  'port 22'",
+    shell=True,
+    stdout=subprocess.PIPE,
+)
 
-
-#process = subprocess.Popen("nmap -v  "+ scan2 +"/24  |  grep  'port 22'",
- #                            shell=True,
-  #                           stdout=subprocess.PIPE,
-   #                        )
-#stdout_list = process.communicate()[0].decode('utf-8')
-
-#print(stdout_list)
-
-#splitlines()     
-
-
-#scan2 = input("Scan Your network for IP Addresses: ")
-process = subprocess.Popen("nmap -v  "+ str(scan2) +"/24  |  grep  'port 22'",
-                             shell=True,
-                             stdout=subprocess.PIPE,
-                           )
 stdout_list = process.communicate()[0].decode('utf-8')
-  #string.split(inputString, '\n') 
 command = stdout_list.split('\n')
 
-selected_ip = None
-for ip_string in command:
-    if ip_string:
-    #print('ass', ip_string)
-      ip = ip_string.split()[-1]
-    #print(ip_string, ip)  
-      if input("Discovered IP: " + "("+ ip + ")" +"\n" + "Do you want to select this IP Address [Y/n]:") == 'y':
-        selected_ip = ip
-#print(selected_ip, ip) 
-#command = ['nmap', '-v', scan2 + '/24', '|' , 'grep'+ " " + "'port 22'"]
-#result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
-#print (result.stdout.decode('utf-8'))
-#print (command)
-#print(' '.join(command))
-print ("\n")
+
+def ask_for_input(text):
+    user_input = None
+    while not user_input:
+        user_input = input(text)
+    return user_input
+
+
+template = """
+Host {machine_name}
+Hostname {selected_ip}
+Port {port}
+User {user}
+"""
+
 try:
-    while True:
-            ip_string
-            first = input("Please Enter Machine Name: ")
-            zero = input("This for the root user:")
-            #second = input("Please Enter The Hostname Of the Machine Or IP Address: ")
-            second = input
-            third = input("Please Enter The Port Number. Skip with Enter: ")
-            fourth = input("Please Enter The User: " )
-            fifth = input("Copy the ssh id to the machine. Do you want to continue (y) ")
-            sixth = input("Copy the ssh id to root. Do you want to continue (y):")
-            if first:
-                config.write("Host " + first)
-                config.write("\n")
-            if second:
-                config.write("Hostname " + ip + "\n")
-                #config.write("Hostname " + second)
-                #config.write("Hostname " + ip + selected_ip) 
-                #config.write("\n")
-            if third: 
-                config.write("Port " + third)
-                config.write("\n")
-            if fourth:
-                config.write("User " + fourth)
-                config.write("\n")
-                config.write("\n")
-            if zero:
-                config.write("\n")
-                config.write("Host " + zero + "\n" + "Hostname " + ip + "\n" + third + "\n" + "User " + "root" + "\n")
-                config.write("\n")   
-            if fifth:
-                    os.system("ssh-copy-id " + fourth + "@" + ip)
-            if sixth:
-                    os.system("ssh -t " + fourth + "@" + ip  + " " + " " " 'sudo cp --parents .ssh/authorized_keys /root/' ")    
-            print ("Finished and starting with the new machine")
-            print ("\n")
-            if first == fourth:
-                config.write("\n")
-                config.write("\n")
+    for ip_string in command:
+        if ip_string:
+            ip = ip_string.split()[-1]
+            if input("Discovered IP: " + "(" + ip + ")" + "\n" + "Do you want to select this IP Address [y/N]:") == 'y':
+                selected_ip = ip
+
+                machine_name = ask_for_input("Please Enter Machine Name: ")
+                root_user = ask_for_input("This for the root user:")
+                port = input("Please Enter The Port Number. Skip with Enter: ") or '22'
+                user = ask_for_input("Please Enter The User: ")
+                shh_to_machine = input("Copy the ssh id to the machine. Do you want to continue (y) ").lower()
+                shh_to_root = input("Copy the ssh id to root. Do you want to continue (y):").lower()
+
+                normal_config = template.format(
+                    machine_name=machine_name,
+                    root_user=root_user,
+                    port=port,
+                    user=user,
+                    selected_ip=selected_ip,
+                )
+                config.write(normal_config)
+
+                if shh_to_root == 'y':
+                    root_config = template.format(
+                        machine_name=machine_name,
+                        root_user=root_user,
+                        port=port,
+                        user='root',
+                        selected_ip=selected_ip,
+                    )
+                    config.write(root_config)
+
+                if shh_to_machine:
+                    os.system("ssh-copy-id " + user + "@" + selected_ip)
+
+                if shh_to_root:
+                    os.system("ssh -t root@" + selected_ip + " " + " " " 'sudo cp --parents .ssh/authorized_keys /root/' ")
+
+                print("Finished and starting with the new machine\n\n")
+
 except KeyboardInterrupt:
-  config.close()
-atexit.register(exit_handler)
+    config.close()
+print("Information saved")
 
