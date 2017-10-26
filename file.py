@@ -43,9 +43,9 @@ scan1 = input("Enter your IP to scan your network for open ssh: ")
 os.system("nmap -v " + str(scan1) + "/24" + "| grep " + " 'ssh'")
 print ("\n")
 
-#scan2 = input("Scan Your network for IP Addresses: ")
+scan2 = input("Scan Your network for IP Addresses: ")
 #This only for testing 
-scan2 = "192.168.56.1"
+#scan2 = "192.168.56.1"
 os.system("nmap -v " + scan2 + "/24" + "| grep" + " 'port 22'")
 
 
@@ -75,9 +75,9 @@ for ip_string in command:
     #print('ass', ip_string)
       ip = ip_string.split()[-1]
     #print(ip_string, ip)  
-      if input(ip + "Do you want to select this IP Address [Y/n]:") == 'y':
+      if input("Discovered IP: " + "("+ ip + ")" +"\n" + "Do you want to select this IP Address [Y/n]:") == 'y':
         selected_ip = ip
-print(selected_ip, ip) 
+#print(selected_ip, ip) 
 #command = ['nmap', '-v', scan2 + '/24', '|' , 'grep'+ " " + "'port 22'"]
 #result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
 #print (result.stdout.decode('utf-8'))
