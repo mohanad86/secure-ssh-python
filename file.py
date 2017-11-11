@@ -17,7 +17,6 @@ Creating The ssh config File
     config = open(filename, 'a')
 else:
     config = open(filename, 'w')
-    print(config)
 
 if input("Do you want to create ssh key [y/N]. You can skip with Enter: ") == 'y':
     os.system("ssh-keygen -t rsa")
@@ -42,8 +41,9 @@ scan1 = input("Enter your IP to scan your network for open ssh: ")
 os.system("nmap -v " + str(scan1) + "/24" + "| grep " + " 'ssh'")
 
 print("\n")
-scan2 = '192.168.56.1'
-#scan2 = input("Scan Your network for IP Addresses: ")
+#This for testing 
+#scan2 = '192.168.56.1'
+scan2 = input("Scan Your network for IP Addresses: ")
 process = subprocess.Popen(
     "nmap -v  " + str(scan2) + "/24  |  grep  'port 22'",
     shell=True,
