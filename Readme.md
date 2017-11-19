@@ -4,7 +4,7 @@
 
 
 # Example of the working environment
-![alt text]()
+![alt text](https://github.com/mohanad86/autossh-python/blob/master/Screenshot%20from%202017-11-19%2004-38-13.png)
 
 
 ### The code is to automate sending the ssh public ID to many machines, and if user need to access the machines it could be easy, cause the code will add all the required information to .ssh/config. 
