@@ -22,7 +22,7 @@ $ sudo apt-get install gedit
 $ chmod +x auto-ssh.py
 $ ssh -t machine-name (The command here)
 ```
-#Follow this instructions to clone to my Repo
+# Follow this instructions to clone to my Repo
 - Clone to the this repository from terminal
 ```sh 
 $ git clone https://github.com/mohanad86/autossh-python
@@ -31,13 +31,13 @@ $ cd autossh-python
 ``` 
 
 
-#If you're interested to see how it works
+# If you're interested to see how it works
 
 * [Auto-SSH video](https://www.youtube.com/watch?v=MxuFB4hLGWc&index=6&list=PLKAuFoXV02VoW3cvZZAcDI1qWvuyM1qrF)
 
 
 
-#Interesting about the how the ssh works 
+# Interesting about the how the ssh works 
 
 * [First ssh tutorial](https://www.youtube.com/watch?v=xhqY3m8xiwQ&list=PLKAuFoXV02VoW3cvZZAcDI1qWvuyM1qrF)
 
