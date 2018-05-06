@@ -22,7 +22,7 @@ else:
 if input("Do you want to create ssh key [y/N]. You can skip with Enter: ") == 'y':
     os.system("ssh-keygen -t rsa")
 
-if input("Do you want to show the current IP address: [y/N] " ) == 'y':
+if input("Do you want to show the current IP Addresses: [y/N] " ) == 'y':
     os.system("ifconfig |  grep ' inet '")
 print("\n")
 print("Proceeding to Nmap scan")
