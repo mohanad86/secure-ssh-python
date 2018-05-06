@@ -1,6 +1,7 @@
+#!/usr/bin/env python3
+
 import os
 import subprocess
-
 
 filename = ".ssh/config"
 
@@ -21,31 +22,22 @@ else:
 if input("Do you want to create ssh key [y/N]. You can skip with Enter: ") == 'y':
     os.system("ssh-keygen -t rsa")
 
-#if input("Do you want to select the IP Address: " ) == 'y':
- #   os.system("ifconfig |  grep ' addr'")
-'''
-process2 = subprocess.Popen(
-    "ifconfig |  grep ' addr'",
-    shell=True,
-    stdout=subprocess.PIPE,
-)
-
-
-stdout_list = process2.communicate()[0].decode('utf-8')
-command2 = stdout_list.split('\n')
-print(command2, stdout_list)
-'''
+if input("Do you want to show the current IP address: [y/N] " ) == 'y':
+    os.system("ifconfig |  grep ' inet '")
+print("\n")
+print("Proceeding to Nmap scan")
 print("\n")
 
-scan1 = input("Enter your IP to scan your network for open ssh: ")
-os.system("nmap -v " + str(scan1) + "/24" + "| grep " + " 'ssh'")
 
+scan_nmap = input("Enter your IP to scan your network for open ssh ports: ")
+port = int(input("Enter the port number: "))
+os.system("nmap -v " + str(scan_nmap) + "/" + str(port) + "| grep " + " 'ssh'")
 print("\n")
-#This for testing 
-#scan2 = '192.168.56.1'
-scan2 = input("Scan Your network for IP Addresses: ")
+
+scan_ip_address = input("Enter IP address to scan your network for IP Addresses: ")
+port_ip = int(input("Enter the port number: "))
 process = subprocess.Popen(
-    "nmap -v  " + str(scan2) + "/24  |  grep  'port 22'",
+    "nmap -v  " + str(scan_ip_address) + "/" + str(port_ip) +  "  |  grep  'port 22'",
     shell=True,
     stdout=subprocess.PIPE,
 )
