@@ -2,7 +2,7 @@
 
 
 # Example of the working environment
-![alt text](https://github.com/mohanad86/autossh-python/blob/master/Screenshot%20from%202017-11-19%2004-38-13.png)
+![alt text](https://github.com/mohanad86/autossh-python/blob/master/example.png)
 
 ### Scenario
 If the security solution fails, make the automate the distribution of the SSH keys for all the machine in the network
