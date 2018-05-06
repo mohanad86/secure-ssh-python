@@ -1,11 +1,25 @@
-# Auto-SSH  
-
-
+# Auto-SSH for Linux security 
 
 
 # Example of the working environment
 ![alt text](https://github.com/mohanad86/autossh-python/blob/master/Screenshot%20from%202017-11-19%2004-38-13.png)
 
+###Scenario
+If the security solution fails, make the automate the distribution of the SSH keys for all the machine in the network
+and will allow the administrator to ssh -t all the machine with the root permissions
+the administrator can use the following commands to ensure the security of the system
+
+```sh
+$ ssh -t hostname top -U [username]
+$ ssh -t hostname  ps -u [username]
+$ ssh -t hostname watch w
+$ ssh -t hostname watch w [username]
+$ ssh -t hostname watch who 
+$ ssh -t hostname watch who -a
+$ ssh -t hostname watch users
+$ ssh -t hostname tail -f /var/log/syslog
+$ ssh -t hostname htop
+```  
 
 ### The code is to automate sending the ssh public ID to many machines, and if user need to access the machines it could be easy, cause the code will add all the required information to .ssh/config. 
 
