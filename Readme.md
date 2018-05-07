@@ -5,9 +5,9 @@
 ![alt text](https://github.com/mohanad86/autossh-python/blob/master/example.png)
 
 ### Scenario
-If the security solution fails, make the automate the distribution of the SSH keys for all the machine in the network
-and will allow the administrator to ssh -t all the machine with the root permissions
-the administrator can use the following commands to ensure the security of the system
+If the security solution fails, system administrator will use the script to automate the distribution of the SSH keys for all the machines in the network and will allow the administrator to SSH -t thoroughly the specific machine accompanied by the root permissions. 
+System administrator can use the following commands to ensure the security of the system, 
+until the monitoring solution will back in busniess. 
 
 ```sh
 $ ssh -t hostname top -U [username]
