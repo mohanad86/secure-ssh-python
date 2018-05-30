@@ -30,7 +30,7 @@ print("\n")
 
 
 scan_nmap = input("Enter your IP to scan your network for open ssh ports: ")
-port = int(input("Enter the port number: "))
+port = int(input("Enter the subnet mask: "))
 os.system("nmap -v " + str(scan_nmap) + "/" + str(port) + "| grep " + " 'ssh'")
 print("\n")
 
