@@ -30,14 +30,18 @@ print("\n")
 
 
 scan_nmap = input("Enter your IP to scan your network for open ssh ports: ")
-port = int(input("Enter the subnet mask: "))
-os.system("nmap -v " + str(scan_nmap) + "/" + str(port) + "| grep " + " 'ssh'")
+subnet_mask = int(input("Enter the subnet mask: "))
+scan_option = input("Enter scan option - Recommended (-v): ")
+
+os.system("nmap " + scan_option + " " + str(scan_nmap) + "/" + str(subnet_mask) + "| grep " + " 'ssh'")
 print("\n")
 
 scan_ip_address = input("Enter IP address to scan your network for IP Addresses: ")
-port_ip = int(input("Enter the subnet mask: "))
+subnet_mask2 = int(input("Enter the subnet mask: "))
+scan_option2 = input("Enter scan option - Recommended (-v): ")
+
 process = subprocess.Popen(
-    "nmap -v  " + str(scan_ip_address) + "/" + str(port_ip) +  "  |  grep  'port 22'",
+    "nmap " + scan_option2 + " " + str(scan_ip_address) + "/" + str(subnet_mask2) +  "  |  grep  'port 22'",
     shell=True,
     stdout=subprocess.PIPE,
 )
@@ -72,7 +76,6 @@ try:
             ip = ip_string.split()[-1]
             if input("Discovered IP: " + "(" + ip + ")" + "\n" + "Do you want to select this IP Address [y/N]:") == 'y':
                 selected_ip = ip
-
                 machine_name = ask_for_input("Please Enter Machine Name: ")
                 root_user = ask_for_input_root("This for the root user:")
                 port = input("Please Enter The Port Number. Skip with Enter: ") or '22'
