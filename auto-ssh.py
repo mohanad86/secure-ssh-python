@@ -35,7 +35,7 @@ os.system("nmap -v " + str(scan_nmap) + "/" + str(port) + "| grep " + " 'ssh'")
 print("\n")
 
 scan_ip_address = input("Enter IP address to scan your network for IP Addresses: ")
-port_ip = int(input("Enter the port number: "))
+port_ip = int(input("Enter the subnet mask: "))
 process = subprocess.Popen(
     "nmap -v  " + str(scan_ip_address) + "/" + str(port_ip) +  "  |  grep  'port 22'",
     shell=True,
