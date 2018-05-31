@@ -11,23 +11,28 @@ if not os.path.exists(".ssh"):
 
 if os.path.exists(filename):
     print("""
-Config File exists
-Now We Editing the same Config file
-Creating The ssh config File
+**Config File exists**\n
+**Now we editing the same Config file**\n
     """)
     config = open(filename, 'a')
 else:
+    print("**Creating The ssh config File**\n")
     config = open(filename, 'w')
 
-if input("Do you want to create ssh key [y/N]. You can skip with Enter: ") == 'y':
+if input("Do you want to create ssh key [y/N]. You can skip with Enter: \n") == 'y':
     os.system("ssh-keygen -t rsa")
+print("\n")
 
-if input("Do you want to show the current IP Addresses: [y/N] " ) == 'y':
+if input("Do you want to show the current IP addresses with (ifconfig) command: [y/N] " ) == 'y':
     os.system("ifconfig |  grep ' inet '")
 print("\n")
-print("Proceeding to Nmap scan")
+
+if input("Do you want to show the current IP addresses with (ip addr) command: [y/N]") == 'y':
+    os.system("ip addr | grep ' inet '")
 print("\n")
 
+print("Proceeding to Nmap scan")
+print("\n")
 
 scan_nmap = input("Enter your IP to scan your network for open ssh ports: ")
 subnet_mask = int(input("Enter the subnet mask: "))
